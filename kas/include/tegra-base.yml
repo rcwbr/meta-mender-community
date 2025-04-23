@@ -40,6 +40,7 @@ local_conf_header:
     INHERIT:remove = "tegra-support-sanity distro_layer_buildinfo"
     INHERIT += "tegra-mender-setup"
     MENDER_FEATURES_ENABLE:append = " mender-growfs-data"
+    MENDER_FEATURES_DISABLE:append = " mender-uboot"
     IMAGE_FSTYPES:tegra = "tegraflash mender dataimg"
     IMAGE_FSTYPES:pn-tegra-minimal-initramfs:tegra = "${INITRAMFS_FSTYPES}"
     IMAGE_FSTYPES:pn-tegra-initrd-flash-initramfs:tegra = "${TEGRA_INITRD_FLASH_INITRAMFS_FSTYPES}"

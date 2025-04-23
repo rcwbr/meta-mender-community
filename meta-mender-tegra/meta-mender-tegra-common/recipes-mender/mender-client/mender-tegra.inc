@@ -1,4 +1,4 @@
-EXTRADEPS:tegra = "tegra-uefi-capsules mender-update-verifier tegra-redundant-boot"
+EXTRADEPS:tegra = "tegra-uefi-capsules libubootenv-fake mender-update-verifier tegra-redundant-boot"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI:remove:mender-persist-systemd-machine-id = " \
