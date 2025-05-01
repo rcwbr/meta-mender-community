@@ -4,7 +4,7 @@ header:
 repos:
   meta-rockchip:
     url: https://git.yoctoproject.org/meta-rockchip
-    commit: e641dba980efa885df7e992ac5c8783270aa375d
+    commit: 63a3d6fa336318dffb3e5bb913bc239026ae9015
 
   meta-mender-community:
     layers:
