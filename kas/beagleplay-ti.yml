@@ -5,7 +5,7 @@ header:
   - kas/include/arm.yml
   - kas/include/ti.yml
 
-machine: beagleplay
+machine: beagleplay-ti
 
 local_conf_header:
   beagleplay: |
