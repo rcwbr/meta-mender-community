@@ -25,7 +25,8 @@ jobs:
       matrix:
         board: [
           olimex-imx8mp-evb,
-          imx93-var-som
+          imx93-var-som,
+          nezha-allwinner-d1
         ]
         subpath: [.]
         include:
