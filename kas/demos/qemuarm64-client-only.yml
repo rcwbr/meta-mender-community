@@ -25,5 +25,7 @@ local_conf_header:
     MENDER_INVENTORY_POLL_INTERVAL_SECONDS = "5"
     MENDER_RETRY_POLL_INTERVAL_SECONDS = "30"
     IMAGE_INSTALL:append = "mender-auth mender-update mender-connect"
+    # quickfix: adding mender-systemd to fix packaging of mender-connect
+    DISTROOVERRIDES:append = ":mender-systemd"
 
 machine: qemuarm64
