@@ -31,7 +31,7 @@ jobs:
       - name: Build image
         run: |
           mkdir -p ${BUILDDIR}/raspberrypi5
-          cd -p ${BUILDDIR}/raspberrypi5
+          cd ${BUILDDIR}/raspberrypi5
           kas checkout ../../kas/raspberrypi5.yml
           kas build ../../kas/raspberrypi5.yml
           find . -iname "*raspberrypi5.mender*"
