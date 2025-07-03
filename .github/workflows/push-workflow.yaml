@@ -31,6 +31,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build image
         run: |
+          pwd
+          ls -la
+          mkdir -p $HOME/build
+          cd $HOME/build
+          cp -r /__w/meta-mender-community/meta-mender-community .
+          cd meta-mender-community
           kas build kas/raspberrypi5.yml
           find . -iname "*raspberrypi5.mender*"
           find . -iname "*raspberrypi5.sdimg*"
