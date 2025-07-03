@@ -31,9 +31,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build image
         run: |
-          mkdir -p ${BUILDDIR}/raspberrypi5
-          cd ${BUILDDIR}/raspberrypi5
-          kas checkout ../../kas/raspberrypi5.yml
-          kas build ../../kas/raspberrypi5.yml
+          kas build kas/raspberrypi5.yml
           find . -iname "*raspberrypi5.mender*"
           find . -iname "*raspberrypi5.sdimg*"
