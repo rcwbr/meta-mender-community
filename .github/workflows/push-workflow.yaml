@@ -27,6 +27,8 @@ jobs:
       image: ghcr.io/rcwbr/meta-mender-community-devcontainer:871d27b19842fc26f26ceac953ab3a7ef28ed80a
       # image: ${{ fromJSON(needs.devcontainer-cache-build.outputs.devcontainer-cache-image-all_configs).target.pre-commit.args.DEVCONTAINER_PRE_COMMIT_IMAGE }} TODO restore
       options: --user root
+    env:
+      KAS_ALLOW_ROOT: yes
     steps:
       - uses: actions/checkout@v4
       - name: Build image
