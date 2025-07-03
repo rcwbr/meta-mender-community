@@ -1,7 +1,7 @@
 # hadolint ignore=DL3006
 FROM base_context
 
-RUN pip install kas
+RUN pip install --no-cache-dir kas==4.0
 
 # hadolint ignore=SC2034
 RUN DEBIAN_FRONTEND=noninteractive \
