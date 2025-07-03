@@ -5,6 +5,7 @@ variable "devcontainer_layers" {
     "zsh-thefuck-pyenv",
     "zsh",
     "tmux",
+    "meta-mender-community",
     "useradd",
     "pre-commit-base",
     "pre-commit-tool-image",
