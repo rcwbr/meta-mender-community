@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-24.04
     # needs: devcontainer-cache-build TODO restore
     container:
-      image: ghcr.io/rcwbr/meta-mender-community-devcontainer-pre-commit:raspberry-pi-5
+      image: ghcr.io/rcwbr/meta-mender-community-devcontainer:871d27b19842fc26f26ceac953ab3a7ef28ed80a
       # image: ${{ fromJSON(needs.devcontainer-cache-build.outputs.devcontainer-cache-image-all_configs).target.pre-commit.args.DEVCONTAINER_PRE_COMMIT_IMAGE }} TODO restore
     steps:
       - uses: actions/checkout@v4
