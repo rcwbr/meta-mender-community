@@ -5,6 +5,14 @@ on:
 
 env:
   BUILDDIR: build
+  ARTIFACT_OUTPUT_DIR
+  PERSISTENT_DIR
+  BUILD_DL_DIR
+  BUILD_SSTATE_DIR
+  BUILD_LAYERCACHE_DIR
+  BUILD_ASSETS_DIR
+  KAS_UID
+  KAS_GID
 
 jobs:
   prepare:
@@ -17,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: artifact_path
         name: create artifact output directory
-        run: echo "artifact_path=${{ vars.ARTIFACT_OUTPUT_DIR }}/$GITHUB_REPOSITORY/$GITHUB_WORKFLOW/$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" >> $GITHUB_OUTPUT
+        run: echo "artifact_path=${{ env.ARTIFACT_OUTPUT_DIR }}/$GITHUB_REPOSITORY/$GITHUB_WORKFLOW/$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" >> $GITHUB_OUTPUT
 
   build:
     needs: [prepare]
@@ -25,29 +33,9 @@ jobs:
       fail-fast: false
       matrix:
         board: [
-          beaglebone,
-          beaglebone-ai64,
-          beagleplay,
-          raspberrypi,
-          raspberrypi-cm,
-          raspberrypi0,
-          raspberrypi0-wifi,
-          raspberrypi2,
-          raspberrypi0-2w,
-          raspberrypi0-2w-64,
-          raspberrypi3,
-          raspberrypi3-64,
-          raspberrypi-cm3,
           raspberrypi4,
           raspberrypi4-64,
           raspberrypi5,
-          qemuarm64,
-          qemux86-64,
-          vexpress-qemu,
-          vexpress-qemu-flash,
-          x86-virtual,
-          beaglebone-uboot,
-          rock-4c-plus,
         ]
         subpath: [.]
 
@@ -56,23 +44,23 @@ jobs:
       # the container image needs to be effectively hardcoded, it seems.
       image: ghcr.io/theyoctojester/devcontainer-base-yoep:main
       volumes:
-        - ${{ vars.PERSISTENT_DIR }}/downloads:${{ vars.BUILD_DL_DIR }}
-        - ${{ vars.PERSISTENT_DIR }}/sstate-cache:${{ vars.BUILD_SSTATE_DIR }}
-        - ${{ vars.PERSISTENT_DIR }}/layers:${{ vars.BUILD_LAYERCACHE_DIR }}
-        - ${{ vars.PERSISTENT_DIR }}/assets:${{ vars.BUILD_ASSETS_DIR }}
-      options: --user ${{ vars.KAS_UID }}:${{ vars.KAS_GID }}
+        - ${{ env.PERSISTENT_DIR }}/downloads:${{ env.BUILD_DL_DIR }}
+        - ${{ env.PERSISTENT_DIR }}/sstate-cache:${{ env.BUILD_SSTATE_DIR }}
+        - ${{ env.PERSISTENT_DIR }}/layers:${{ env.BUILD_LAYERCACHE_DIR }}
+        - ${{ env.PERSISTENT_DIR }}/assets:${{ env.BUILD_ASSETS_DIR }}
+      options: --user ${{ env.KAS_UID }}:${{ env.KAS_GID }}
     steps:
       - name: enter build dir and build
         env:
-          DL_DIR: ${{ vars.BUILD_DL_DIR}}
-          SSTATE_DIR: ${{ vars.BUILD_SSTATE_DIR}}
-          KAS_REPO_REF_DIR: ${{ vars.BUILD_LAYERCACHE_DIR}}
+          DL_DIR: ${{ env.BUILD_DL_DIR}}
+          SSTATE_DIR: ${{ env.BUILD_SSTATE_DIR}}
+          KAS_REPO_REF_DIR: ${{ env.BUILD_LAYERCACHE_DIR}}
         run: >
           mkdir -p $BUILDDIR/${{ matrix.board }} &&
           cd $BUILDDIR/${{ matrix.board }} &&
           kas checkout ../../kas/${{ matrix.subpath }}/${{ matrix.board }}.yml &&
-          if [ -f "${{ vars.BUILD_ASSETS_DIR }}/site.conf" ]; then
-          cp ${{ vars.BUILD_ASSETS_DIR }}/site.conf build/conf/site.conf;
+          if [ -f "${{ env.BUILD_ASSETS_DIR }}/site.conf" ]; then
+          cp ${{ env.BUILD_ASSETS_DIR }}/site.conf build/conf/site.conf;
           fi &&
           kas build ../../kas/${{ matrix.subpath }}/${{ matrix.board }}.yml
       - name: find

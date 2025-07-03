@@ -16,3 +16,14 @@ jobs:
     needs: devcontainer-cache-build
     with:
       pre-commit-image: ${{ fromJSON(needs.devcontainer-cache-build.outputs.devcontainer-cache-image-all_configs).target.pre-commit.args.DEVCONTAINER_PRE_COMMIT_IMAGE }}
+  build-board:
+    runs-on: ubuntu-24.04
+    # needs: devcontainer-cache-build TODO restore
+    container:
+      image: ghcr.io/rcwbr/meta-mender-community-devcontainer-pre-commit:raspberry-pi-5
+      # image: ${{ fromJSON(needs.devcontainer-cache-build.outputs.devcontainer-cache-image-all_configs).target.pre-commit.args.DEVCONTAINER_PRE_COMMIT_IMAGE }} TODO restore
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: |
+          kas build kas/raspberrypi5.yml
