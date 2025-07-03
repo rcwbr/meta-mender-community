@@ -78,6 +78,17 @@ jobs:
           cp ${{ vars.BUILD_ASSETS_DIR }}/site.conf build/conf/site.conf;
           fi &&
           kas build ../../kas/${{ matrix.subpath }}/${{ matrix.board }}.yml
+      - name: find
+        run: >
+          find . -iname "*raspberrypi5.mender*"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: raspberrypi5.sdimg
+          path: build/tmp/deploy/images/raspberrypi5/raspberrypi5.sdimg
+      - uses: actions/upload-artifact@v4
+        with:
+          name: raspberrypi5.sdimg
+          path: build/tmp/deploy/images/raspberrypi5/raspberrypi5.mender
 
   collect:
     needs: [prepare, build]

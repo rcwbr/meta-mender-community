@@ -12,6 +12,7 @@ devcontainer_definition_files_arr=(
   zsh/devcontainer-bake.hcl
   tmux/devcontainer-bake.hcl
   useradd/devcontainer-bake.hcl
+  cwd://.devcontainer/meta-mender-community.hcl
   pre-commit/devcontainer-bake.hcl
   cwd://.devcontainer/devcontainer-bake.hcl
 )
