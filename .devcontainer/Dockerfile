@@ -1,7 +1,7 @@
 # hadolint ignore=DL3006
 FROM base_context
 
-RUN pip install --no-cache-dir kas==4.0
+RUN pip install --no-cache-dir "cython<3.0.0" kas==4.0 --no-build-isolation
 
 # hadolint ignore=SC2034
 RUN DEBIAN_FRONTEND=noninteractive \
