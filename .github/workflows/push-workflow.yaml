@@ -5,6 +5,10 @@ on:
       - main
     tags:
   pull_request:
+
+env:
+  BUILDDIR: build
+
 jobs:
   devcontainer-cache-build:
     uses: rcwbr/devcontainer-cache-build/.github/workflows/devcontainer-cache-build.yaml@0.8.0
@@ -26,8 +30,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build image
         run: |
-          mkdir ci-build
-          cd ci-build
-          kas build ../kas/raspberrypi5.yml
+          mkdir -p ${BUILDDIR}/raspberrypi5
+          cd -p ${BUILDDIR}/raspberrypi5
+          kas checkout ../../kas/raspberrypi5.yml
+          kas build ../../kas/raspberrypi5.yml
           find . -iname "*raspberrypi5.mender*"
           find . -iname "*raspberrypi5.sdimg*"
