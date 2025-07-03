@@ -1,10 +1,7 @@
 name: build_boards
 
 on:
-  workflow_dispatch:
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '5 2 * * 6'
+  pull_request:
 
 env:
   BUILDDIR: build
@@ -74,7 +71,7 @@ jobs:
           mkdir -p $BUILDDIR/${{ matrix.board }} &&
           cd $BUILDDIR/${{ matrix.board }} &&
           kas checkout ../../kas/${{ matrix.subpath }}/${{ matrix.board }}.yml &&
-          if [ -f "${{ vars.BUILD_ASSETS_DIR }}/site.conf" ]; then 
+          if [ -f "${{ vars.BUILD_ASSETS_DIR }}/site.conf" ]; then
           cp ${{ vars.BUILD_ASSETS_DIR }}/site.conf build/conf/site.conf;
           fi &&
           kas build ../../kas/${{ matrix.subpath }}/${{ matrix.board }}.yml
