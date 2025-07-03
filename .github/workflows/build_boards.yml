@@ -8,7 +8,7 @@ env:
 
 jobs:
   prepare:
-    runs-on: [self-hosted, linux, x64, builder]
+    runs-on: ubuntu-24.04
     outputs:
       artifact_path: ${{ steps.artifact_path.outputs.artifact_path }}
     steps:
@@ -51,7 +51,7 @@ jobs:
         ]
         subpath: [.]
 
-    runs-on: [self-hosted, linux, x64, builder]
+    runs-on: ubuntu-24.04
     container:
       # the container image needs to be effectively hardcoded, it seems.
       image: ghcr.io/theyoctojester/devcontainer-base-yoep:main
@@ -89,7 +89,7 @@ jobs:
 
   collect:
     needs: [prepare, build]
-    runs-on: [self-hosted, linux, x64, builder]
+    runs-on: ubuntu-24.04
     steps:
       - name: collect artifacts
         env:
