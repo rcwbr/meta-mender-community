@@ -5,6 +5,7 @@ variable "devcontainer_layers" {
     "zsh-thefuck-pyenv",
     "zsh",
     "tmux",
+    "meta-mender-community",
     "useradd",
     "pre-commit-base",
     "pre-commit-tool-image",
@@ -14,6 +15,6 @@ variable "devcontainer_layers" {
 
 target "docker-client" {
   contexts = {
-    base_context = "docker-image://python:3.12.4"
+    base_context = "docker-image://python:3.10.18"
   }
 }

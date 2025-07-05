@@ -5,6 +5,10 @@ on:
       - main
     tags:
   pull_request:
+
+env:
+  BUILDDIR: build
+
 jobs:
   devcontainer-cache-build:
     uses: rcwbr/devcontainer-cache-build/.github/workflows/devcontainer-cache-build.yaml@0.8.0
@@ -16,3 +20,24 @@ jobs:
     needs: devcontainer-cache-build
     with:
       pre-commit-image: ${{ fromJSON(needs.devcontainer-cache-build.outputs.devcontainer-cache-image-all_configs).target.pre-commit.args.DEVCONTAINER_PRE_COMMIT_IMAGE }}
+  build-board:
+    runs-on: ubuntu-24.04
+    # needs: devcontainer-cache-build TODO restore
+    container:
+      image: ghcr.io/rcwbr/meta-mender-community-devcontainer:3a9dd8f1d8e2201bafd386472cf9bea2022f4c54
+      # image: ${{ fromJSON(needs.devcontainer-cache-build.outputs.devcontainer-cache-image-all_configs).target.pre-commit.args.DEVCONTAINER_PRE_COMMIT_IMAGE }} TODO restore
+      options: --user root
+    env:
+      KAS_ALLOW_ROOT: yes
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: |
+          pwd
+          ls -la
+          mkdir -p build
+          chown -R codespace:codespace .
+          cd build
+          sudo -u codespace kas build ../kas/raspberrypi5.yml
+          find . -iname "*raspberrypi5.mender*"
+          find . -iname "*raspberrypi5.sdimg*"
