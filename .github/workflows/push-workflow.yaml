@@ -36,7 +36,7 @@ jobs:
           pwd
           ls -la
           mkdir -p build
-          chown -R codespace:codespace build
+          chown -R codespace:codespace .
           cd build
           sudo -u codespace kas build ../kas/raspberrypi5.yml
           find . -iname "*raspberrypi5.mender*"
