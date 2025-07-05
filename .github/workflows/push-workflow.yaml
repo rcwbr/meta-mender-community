@@ -26,7 +26,7 @@ jobs:
     container:
       image: ghcr.io/rcwbr/meta-mender-community-devcontainer:3a9dd8f1d8e2201bafd386472cf9bea2022f4c54
       # image: ${{ fromJSON(needs.devcontainer-cache-build.outputs.devcontainer-cache-image-all_configs).target.pre-commit.args.DEVCONTAINER_PRE_COMMIT_IMAGE }} TODO restore
-      options: --user roota
+      options: --user root
     env:
       KAS_ALLOW_ROOT: yes
     steps:
