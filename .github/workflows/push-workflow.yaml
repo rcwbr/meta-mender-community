@@ -26,18 +26,15 @@ jobs:
     container:
       image: ghcr.io/rcwbr/meta-mender-community-devcontainer:3a9dd8f1d8e2201bafd386472cf9bea2022f4c54
       # image: ${{ fromJSON(needs.devcontainer-cache-build.outputs.devcontainer-cache-image-all_configs).target.pre-commit.args.DEVCONTAINER_PRE_COMMIT_IMAGE }} TODO restore
-      options: --user codespace
+      # options: --user codespace
     env:
       KAS_ALLOW_ROOT: yes
     steps:
-      - name: Prep folder
-        run: |
-          sudo chown -R ${USER}:${USER} /__w
       - uses: actions/checkout@v4
       - name: Build image
         run: |
           pwd
           ls -la
-          kas-container build kas/raspberrypi5.yml
+          sudo -u codespace kas-container build kas/raspberrypi5.yml
           find . -iname "*raspberrypi5.mender*"
           find . -iname "*raspberrypi5.sdimg*"
