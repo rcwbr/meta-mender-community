@@ -30,6 +30,9 @@ jobs:
     env:
       KAS_ALLOW_ROOT: yes
     steps:
+      - name: Prep folder
+        run: |
+          sudo chown -R ${USER}:${USER} .
       - uses: actions/checkout@v4
       - name: Build image
         run: |
