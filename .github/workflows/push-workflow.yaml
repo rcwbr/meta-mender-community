@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: Prep folder
         run: |
-          sudo chown -R ${USER}:${USER} .
+          sudo chown -R ${USER}:${USER} /__w
       - uses: actions/checkout@v4
       - name: Build image
         run: |
