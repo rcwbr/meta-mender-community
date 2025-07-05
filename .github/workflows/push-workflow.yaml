@@ -37,6 +37,7 @@ jobs:
           ls -la
           mkdir -p build
           chown -R codespace:codespace build
+          kas --version
           sudo -u codespace kas build kas/raspberrypi5.yml
           find . -iname "*raspberrypi5.mender*"
           find . -iname "*raspberrypi5.sdimg*"
